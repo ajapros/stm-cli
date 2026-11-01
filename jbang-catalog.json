@@ -2,7 +2,7 @@
   "catalogs": {},
   "aliases": {
     "stm-cli": {
-      "script-ref": "https://github.com/rajakolluru/stm-cli/releases/latest/download/stm-cli.jar",
+      "script-ref": "https://github.com/ajapros/stm-cli/releases/latest/download/stm-cli.jar",
       "description": "stm-cli: render and inspect Chenile state machine definitions (https://thefinito.org)",
       "java": "25+"
     }

@@ -9,7 +9,7 @@ project:
     diagrams, lists the actions allowed in a state, prints the definition as JSON, and generates test cases that
     walk every transition. The state machine is not started, so no application code is needed.
   links:
-    homepage: https://github.com/rajakolluru/stm-cli
+    homepage: https://github.com/ajapros/stm-cli
     documentation: https://thefinito.org
   authors:
     - Raja Shankar Kolluru
@@ -24,7 +24,7 @@ project:
 
 release:
   github:
-    owner: rajakolluru
+    owner: ajapros
     name: stm-cli
     # Tags are plain stm-cli versions (1.0.0), pushed by the maintainer, not created here.
     tagName: '{{projectVersion}}'

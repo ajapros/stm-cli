@@ -18,7 +18,7 @@ Every option is in the manual page, `man stm-cli` (source: `src/man/stm-cli.1.md
 
 ```bash
 brew install ajapros/jgen-tap/stm-cli               # macOS / Linux; installs the man page and completions
-jbang app install stm-cli@rajakolluru/stm-cli       # any OS; JBang fetches Java if needed
+jbang app install stm-cli@ajapros/stm-cli       # any OS; JBang fetches Java if needed
 ```
 
 Or download `stm-cli-<version>.zip` from the releases and put its `bin` folder on your PATH. Java 25 or later is
