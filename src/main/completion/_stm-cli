@@ -1,0 +1,17 @@
+#compdef stm-cli
+# zsh completion for stm-cli
+_arguments -s \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-s,--uml-state-diagram}'[PlantUML state diagram]' \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-m,--mermaid}'[Mermaid state diagram]' \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-a,--allowed-actions}'[allowed actions for a state]:state: ' \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-j,--render-json}'[JSON representation]' \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-t,--generate-test-cases}'[generate test cases]' \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-T,--visualize-test-cases}'[visualize test cases]' \
+  '(-s --uml-state-diagram -m --mermaid -a --allowed-actions -j --render-json -t --generate-test-cases -T --visualize-test-cases -r --render-tests-as-state)'{-r,--render-tests-as-state}'[state diagram per test case]' \
+  {-o,--output}'[output file or directory]:output:_files' \
+  {-S,--styling}'[styling rules JSON]:styling file:_files -g "*.json"' \
+  {-e,--enablement}'[enablement properties]:properties file:_files -g "*.properties"' \
+  {-p,--prefix}'[prefix for all properties]:prefix: ' \
+  '(- *)'{-h,--help}'[show help]' \
+  '(- *)'{-V,--version}'[show version]' \
+  '*:states XML:_files -g "*.xml"'

@@ -1,0 +1,34 @@
+#!/bin/sh
+# stm-cli launcher. Finds Java and runs the stm-cli jar. JAVA_OPTS is passed to the JVM.
+
+# Resolve this script through symlinks (Homebrew links bin/stm-cli into its own bin folder).
+script="$0"
+while [ -h "$script" ]; do
+  link=$(ls -ld "$script" | sed 's/.*-> //')
+  case "$link" in
+    /*) script="$link" ;;
+    *)  script="$(dirname "$script")/$link" ;;
+  esac
+done
+STM_CLI_HOME=$(cd "$(dirname "$script")/.." && pwd -P)
+
+# Find Java: JAVA_HOME, then PATH, then Homebrew's keg-only openjdk.
+if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+  JAVA="$JAVA_HOME/bin/java"
+elif command -v java >/dev/null 2>&1; then
+  JAVA=java
+else
+  for candidate in /opt/homebrew/opt/openjdk@25/bin/java /usr/local/opt/openjdk@25/bin/java \
+                   /home/linuxbrew/.linuxbrew/opt/openjdk@25/bin/java \
+                   /opt/homebrew/opt/openjdk/bin/java /usr/local/opt/openjdk/bin/java \
+                   /home/linuxbrew/.linuxbrew/opt/openjdk/bin/java; do
+    if [ -x "$candidate" ]; then JAVA="$candidate"; break; fi
+  done
+fi
+if [ -z "$JAVA" ]; then
+  echo "stm-cli: Java 25 or later is required. Install it, or set JAVA_HOME." >&2
+  exit 1
+fi
+
+# shellcheck disable=SC2086
+exec "$JAVA" $JAVA_OPTS -jar "$STM_CLI_HOME/lib/stm-cli.jar" "$@"

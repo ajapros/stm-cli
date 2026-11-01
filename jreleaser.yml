@@ -1,0 +1,64 @@
+# Release configuration for stm-cli. Run by .github/workflows/release.yml when a version tag (e.g. 1.0.0) is pushed.
+# stm-cli is released on its own cadence, independently of Chenile and JGen.
+# Local dry run:  jreleaser full-release --dry-run -Djreleaser.project.version=1.0.0
+project:
+  name: stm-cli
+  description: Render and inspect Chenile state machine (STM) definitions from the command line
+  longDescription: |
+    stm-cli reads Chenile state definition files (states XML) and renders them as PlantUML or Mermaid state
+    diagrams, lists the actions allowed in a state, prints the definition as JSON, and generates test cases that
+    walk every transition. The state machine is not started, so no application code is needed.
+  links:
+    homepage: https://github.com/rajakolluru/stm-cli
+    documentation: https://thefinito.org
+  authors:
+    - Raja Shankar Kolluru
+  license: MIT
+  inceptionYear: '2019'
+  stereotype: CLI
+  languages:
+    java:
+      groupId: org.chenile.stmcli
+      artifactId: stm-cli
+      version: '25'
+
+release:
+  github:
+    owner: rajakolluru
+    name: stm-cli
+    # Tags are plain stm-cli versions (1.0.0), pushed by the maintainer, not created here.
+    tagName: '{{projectVersion}}'
+    skipTag: true
+    overwrite: true
+    changelog:
+      formatted: ALWAYS
+      contributors:
+        enabled: false
+
+files:
+  artifacts:
+    # A version-free copy of the jar, so .../releases/latest/download/stm-cli.jar always points at the newest
+    # release (used by jbang-catalog.json).
+    - path: target/stm-cli.jar
+
+distributions:
+  stm-cli:
+    type: JAVA_BINARY
+    executable:
+      name: stm-cli
+      windowsExtension: cmd
+    artifacts:
+      - path: 'target/stm-cli-{{projectVersion}}-dist.zip'
+        transform: 'stm-cli-{{projectVersion}}.zip'
+    extraProperties:
+      useVersionedJava: false
+    brew:
+      active: ALWAYS
+      formulaName: StmCli
+      # The same tap as JGen: brew install ajapros/jgen-tap/stm-cli
+      repository:
+        owner: ajapros
+        name: homebrew-jgen-tap
+      commitAuthor:
+        name: Raja Shankar Kolluru
+        email: raja@thekollurus.com

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- stm-cli is released on its own cadence, built only against a released Chenile (this parent). -->
+    <parent>
+        <groupId>org.chenile</groupId>
+        <artifactId>chenile-parent</artifactId>
+        <version>2.1.35</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>org.chenile.stmcli</groupId>
+    <artifactId>stm-cli</artifactId>
+    <version>${revision}</version>
+    <name>stm-cli</name>
+    <description>Command line tool for Chenile state machine (STM) definitions: diagrams, allowed actions, test cases</description>
+
+    <properties>
+        <!-- stm-cli's own version. The release workflow builds with -Drevision=<tag>. -->
+        <revision>1.0.0</revision>
+        <picocli.version>4.7.6</picocli.version>
+    </properties>
+
+    <dependencies>
+        <!-- CLIHelper and the STM readers, diagram and test-case generators live in Chenile's workflow-utils. -->
+        <dependency>
+            <groupId>org.chenile</groupId>
+            <artifactId>workflow-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>${picocli.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <executions>
+                    <!-- 1. target/stm-cli-<version>-jar-with-dependencies.jar: the runnable jar. -->
+                    <execution>
+                        <id>fat-jar</id>
+                        <phase>package</phase>
+                        <goals><goal>single</goal></goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>org.chenile.stmcli.StmCli</mainClass>
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                    <!-- 2. target/stm-cli-<version>-dist.zip: the installable distribution JReleaser publishes. -->
+                    <execution>
+                        <id>dist</id>
+                        <phase>package</phase>
+                        <goals><goal>single</goal></goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/dist.xml</descriptor>
+                            </descriptors>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
