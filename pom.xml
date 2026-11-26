@@ -20,7 +20,7 @@
 
     <properties>
         <!-- stm-cli's own version. The release workflow builds with -Drevision=<tag>. -->
-        <revision>1.0.0</revision>
+        <revision>1.0.1</revision>
         <picocli.version>4.7.6</picocli.version>
     </properties>
 

@@ -28,7 +28,7 @@ needed.
 
 stm-cli has its own version line (1.0.0 onwards) and release cadence, separate from Chenile and from JGen.
 
-- **Built only against released Chenile.** It uses a released Chenile (`chenile-parent` in `pom.xml`, now 2.1.35)
+- **Built only against released Chenile.** It uses a released Chenile (`chenile-parent` in `pom.xml`, now 2.1.36)
   for the STM readers and generators in `org.chenile:workflow-utils`. The `Build stm-cli` workflow builds from
   Maven Central only, so a dependency on an unreleased Chenile fails there.
 - **`stm-cli -V`** shows both versions.
@@ -45,8 +45,10 @@ make run args="--mermaid src/test/resources/happy-path.xml"
 
 ## Releasing
 
+The 1.0.1 release builds against Chenile 2.1.36.
+
 1. Set `<revision>` in `pom.xml` if needed, commit and push.
-2. Tag and push: `git tag -a 1.0.0 -m "stm-cli 1.0.0" && git push origin 1.0.0`.
+2. Tag and push: `git tag -a 1.0.1 -m "stm-cli 1.0.1" && git push origin 1.0.1`.
 
 The tag runs `.github/workflows/release.yml`, which builds with `-Drevision=<tag>` and runs JReleaser
 (`jreleaser.yml`). JReleaser publishes the GitHub release (the zip and a version-free `stm-cli.jar` for JBang) and
